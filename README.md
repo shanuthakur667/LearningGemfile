@@ -1,37 +1,49 @@
-## Welcome to GitHub Pages
+## Welcome 
+Let's have a look about some basic understanding of gemfile and gems 
+### 1> source
+Its a global source. we can use multiple flobal source. If gem found in multiple souce, then bundler will print warning message (after intsalling the gem) to tell from which souce , gem get install and also listing the other source available.
+### 2> Ruby
+Use option paremeter
+- Version
+  The version ruby your application requres
+  eg - ruby '2.5.5'
+- Engine and Engine Version
+  Engine is implementaion of ruby language in app, MRI( Matz's Ruby Interpreter) is commonly used engine(also known as cruby as it written in c laguage).
+  other engine example is Rubinius, and JRuby
+  NOTE- if engine is specifed then engine version should also be specifed and vice versa
+  eg - ruby "1.8.7", :engine => "jruby", :engine_version => "1.6.7"
+- Patchlevel
+  Ruby patchlevel.
+  eg - ruby "2.0.0", :patchlevel => "247"
+  
+### 3> Gems
+Optional Paremeter
+- Version
+  If you don’t set a gem version, bundler will set it for you. You can avoide it by usings operators (=, !=, >, <, >=, <=, ~> i.e Pessimistically Greater Than or Equal To)
+  NOTE- ~> ensures app will work safly with future version
+  gem 'gem_name', '~> 1.0' is the same as: gem 'gem_name', '>= 1.0', '< 2.0'
+- Require
+  gem 'gem_name', require: false
+  You can prevent bundler from requiring the gem with require: false, but it will still install and maintain the gem. You need to call requre 'gem_name' in file where you use that gem explicitly.
+  These three line are same in functioning
+  gem "nokogiri"
+  gem "nokogiri", :require => "nokogiri"
+  gem "nokogiri", :require => true
+- Source
+  gem 'gem_name', source: 'https://gem_site.com'
+  You can add source of gem so it will override global source for that specific gem, it can be a git or system path as well
 
-You can use the [editor on GitHub](https://github.com/shanuthakur667/LearningGemfile/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+### 4> Gem grouping
+  Gem can belongs to one or more group
+  By default if there is no group assign then it will belongs to 'Default' group.
+  eg -  group :development, :test do
+          gem 'gem_name'
+          gem 'gem_another_name'
+        end
+  You can install gem without specifically excluding a group by-
+  bundle install --without development test
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+-> Bundler stores the flag in APP_ROOT/.bundle/config, see setting of bundler by running 'bundle config'
+  By default, a Rails generated app calls Bundler.require(:default, Rails.env) in your application.rb
+  You can leave groups of gems out of Bundler.require and then require them manually using Ruby's require(require 'gem_name') at the appropriate place in your app. You might do this because requiring a certain gem takes some time and you don't need it every time you boot your application.
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/shanuthakur667/LearningGemfile/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
