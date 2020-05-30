@@ -6,39 +6,53 @@ It's a global source. we can use multiple global sources. If gem found in multip
 Use the option parameter
 - Version->
   The version ruby your application requires
+  ```ruby
   eg - ruby '2.5.5'
+  ```
 - Engine and Engine Version->
   Engine is the implementation of ruby language in app, MRI( Matz's Ruby Interpreter) is a commonly used engine(also known as cruby as it is written in c language).
   other engine example is Rubinius and JRuby
   NOTE- if engine is specified then engine version should also be specified and vice versa
+  ```ruby
   eg - ruby "1.8.7", :engine => "jruby", :engine_version => "1.6.7"
+  ```
 - Patchlevel->
   Ruby patchlevel.
+  ```ruby
   eg - ruby "2.0.0", :patchlevel => "247"
+  ```
   
 ### 3> Gems
 Optional Paremeter
 - Version->
   If you don’t set a gem version, the bundler will set it for you. You can avoid it by using operators (=, !=, >, <, >=, <=, ~> i.e Pessimistically Greater Than or Equal To)
   NOTE- ~> ensures app will work safely with the future version
+  ```ruby
   gem 'gem_name', '~> 1.0' is the same as: gem 'gem_name', '>= 1.0', '< 2.0'
+  ```
 - Require->
   gem 'gem_name', require: false
   You can prevent bundler from requiring the gem with require: false, but it will still install and maintain the gem. You need to call require 'gem_name' in the file where you use that gem explicitly.
   This three-line are same in functioning
+  ```ruby
   gem "nokogiri"
   gem "nokogiri", :require => "nokogiri"
   gem "nokogiri", :require => true
+  ```
 - Source->
+  ```ruby
   gem 'gem_name', source: 'https://gem_site.com'
+  ```
   You can add the source of the gem so it will override global source for that specific gem, it can be a git or system path as well
 ### 4> Gem grouping
   Gem can belongs to one or more group
   By default, if there is no group assign then it will belong to the 'Default' group.
+  ```ruby
   eg -  group :development, :test do
           gem 'gem_name'
           gem 'gem_another_name'
         end
+  ```
   You can install gem without specifically excluding a group by-
   bundle install --without development test
 
